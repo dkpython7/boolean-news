@@ -387,3 +387,11 @@ body {
   display: table;
   clear: both;
 }
+.fake-news-prediction {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin: 20px auto;
+}
