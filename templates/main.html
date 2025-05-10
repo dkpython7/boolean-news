@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fake-News Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='globals.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="div">
+        <!-- Input Section -->
+        <div class="overlap-group">
+          <div class="rectangle"></div>
+          <div class="group">
+            <img class="Fake-news Prediction" src="https://c.animaapp.com/RG4WDjBl/img/boolean-news.png" />
+            <img class="isolation-mode" src="https://c.animaapp.com/RG4WDjBl/img/isolation-mode.svg" />
+          </div>
+          <div class="rectangle-2"></div>
+          <form action="/predict" method="POST">
+            <textarea
+              name="news_text"
+              class="news-input"
+              placeholder="Paste your article here..."
+              required
+            ></textarea>
+            <button type="submit" class="submit-btn">Analyze Article</button>
+          </form>
+        </div>
+
+
+        <!-- Results Section -->
+        <div class="overlap">
+          <div class="rectangle-3"></div>
+          <div class="result-box-left">
+            {% if polarity %}
+            <div class="bar-container">
+              <div class="bar polarity" style="width: {{ polarity }}%;">
+                Polarity: {{ polarity }}%
+              </div>
+            </div>
+            {% endif %}
+            {% if subjectivity %}
+            <div class="bar-container">
+              <div class="bar subjectivity" style="width: {{ subjectivity }}%;">
+                Subjectivity:{{ subjectivity }}%
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+
+        <!-- Prediction Display -->
+        <div class="overlap-2">
+          <div class="rectangle-4"></div>
+          <div class="result-display">
+            {% if prediction == "TRUE" %}
+            <img style="top: 125px; " src="{{ url_for('static', filename='TRUE.png') }}" class="result-image" alt="True" />
+            {% elif prediction == "FALSE" %}
+            <img style="top: 125px;" src="{{ url_for('static', filename='FALSE.png') }}" class="result-image" alt="False" />
+            {% endif %}
+            {% if prediction %}
+            <p>
+              <span style="position: relative; top: 150px; left: 230px">
+                <strong>With a confidence of </strong>
+              </span>
+              <span style="position: relative; top:150px; left: 230px">{{ confidence }}%!</span>
+              
+            </p>
+            
+            {% endif %}
+          </div>
+        </div>
+
+
+        <!-- Feedback Section -->
+      </div>
+    </div>
+  </body>
+</html>
